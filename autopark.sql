@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 11, 2019 at 11:00 PM
+-- Generation Time: May 11, 2019 at 11:54 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `mentainence` (
 
 CREATE TABLE IF NOT EXISTS `rentals` (
   `idRental` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` int(11) DEFAULT NULL,
   `idVehicle` int(11) NOT NULL,
   `idDriver` int(11) DEFAULT NULL,
   `hours` int(11) DEFAULT NULL,
@@ -119,9 +120,11 @@ CREATE TABLE IF NOT EXISTS `rentals` (
   `status` varchar(254) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
+  `registeredBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`idRental`),
   KEY `FK_association3` (`idVehicle`),
-  KEY `FK_association4` (`idDriver`)
+  KEY `FK_association4` (`idDriver`),
+  KEY `FK_association8` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -202,8 +205,9 @@ ALTER TABLE `mentainence`
 -- Constraints for table `rentals`
 --
 ALTER TABLE `rentals`
-  ADD CONSTRAINT `FK_association4` FOREIGN KEY (`idDriver`) REFERENCES `drivers` (`idDriver`),
-  ADD CONSTRAINT `FK_association3` FOREIGN KEY (`idVehicle`) REFERENCES `vehicles` (`idVehicle`);
+  ADD CONSTRAINT `FK_association8` FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`),
+  ADD CONSTRAINT `FK_association3` FOREIGN KEY (`idVehicle`) REFERENCES `vehicles` (`idVehicle`),
+  ADD CONSTRAINT `FK_association4` FOREIGN KEY (`idDriver`) REFERENCES `drivers` (`idDriver`);
 
 --
 -- Constraints for table `vehicles`

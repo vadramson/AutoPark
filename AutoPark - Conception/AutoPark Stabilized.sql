@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     11/05/2019 23:28:15                          */
+/* Created on:     12/05/2019 00:46:30                          */
 /*==============================================================*/
 
 
@@ -13,7 +13,7 @@ create table CarModel
    model                varchar(254),
    year                 int,
    created              datetime,
-   updated               datetime,
+   updated              datetime,
    mark                 varchar(254),
    status               boolean,
    primary key (idModel)
@@ -35,7 +35,7 @@ create table Drivers
    email                varchar(254),
    phone                varchar(254),
    created              datetime,
-   updated               datetime,
+   updated              datetime,
    status               boolean,
    primary key (idDriver)
 );
@@ -45,7 +45,7 @@ create table Drivers
 /*==============================================================*/
 create table Expenditure
 (
-   idExpenditure        int not null AUTO_INCREMENT,
+   idExpenditure        int not null AUTO_INCREMENT, 
    idVehicle            int not null,
    nature               varchar(254),
    description          varchar(1500),
@@ -77,6 +77,7 @@ create table Mentainence
 create table Rentals
 (
    idRental             int not null AUTO_INCREMENT,
+   idUser               int,
    idVehicle            int not null,
    idDriver             int,
    hours                int,
@@ -86,7 +87,8 @@ create table Rentals
    matriculation        varchar(254),
    status               varchar(254),
    created              datetime,
-   updated               datetime,
+   updated              datetime,
+   registeredBy         int,
    primary key (idRental)
 );
 
@@ -124,7 +126,7 @@ create table Vehicles
    feeWithDriver        decimal(18,2),
    feeWithoutDriver     decimal(18,2),
    created              datetime,
-   updated               datetime,
+   updated              datetime,
    statut               boolean,
    primary key (idVehicle)
 );
@@ -146,6 +148,9 @@ alter table Rentals add constraint FK_association3 foreign key (idVehicle)
 
 alter table Rentals add constraint FK_association4 foreign key (idDriver)
       references Drivers (idDriver);
+
+alter table Rentals add constraint FK_association8 foreign key (idUser)
+      references Users (idUser);
 
 alter table Vehicles add constraint FK_association2 foreign key (idModel)
       references CarModel (idModel);
