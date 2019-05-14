@@ -3,13 +3,16 @@
 
 $db = new AUTOPARK();
 
-        if(isset($_POST["ActUrs"]))
+        if(isset($_POST["deactivate_carModel"]))
 	{
-		$idUsers = trim($_POST["ActUrs"]);
-		
-		$db->bdd->query("update users set status = 'Active' where idUsers = '".$idUsers."'") or die(mysql_error());
-		
-		echo" User Activated ";
+		$idModel = trim($_POST["idModel"]);		
+		$db->bdd->query(" UPDATE carmodel SET status = 0 where idModel = '".$idModel."'") or die(mysql_error());
+	}
+        
+        if(isset($_POST["activate_Carmodel"]))
+	{
+		$idModel = trim($_POST["idModel"]);		
+		$db->bdd->query(" UPDATE carmodel SET status = 1 where idModel = '".$idModel."'") or die(mysql_error());
 	}
         
         if(isset($_POST["RmvEqpt"]))
