@@ -25,7 +25,7 @@ class ExpenditureManager {
             <script>
              swal("New Expenditure!", "Added Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=RXhwZW5kaXR1cmVzL0V4cGVuZGl0dXJlcw==";
              }, 20);   
             </script>;              
             <?php        
@@ -45,7 +45,7 @@ class ExpenditureManager {
             <script>
              swal("Expenditure!", "Updated Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=RXhwZW5kaXR1cmVzL0V4cGVuZGl0dXJlcw==";
              }, 100);   
             </script>;              
             <?php

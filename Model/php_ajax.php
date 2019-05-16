@@ -14,26 +14,19 @@ $db = new AUTOPARK();
 		$idModel = trim($_POST["idModel"]);		
 		$db->bdd->query(" UPDATE carmodel SET status = 1 where idModel = '".$idModel."'") or die(mysql_error());
 	}
-        
-        if(isset($_POST["RmvEqpt"]))
+        if(isset($_POST["deactivate_Driver"]))
 	{
-		$idSalesTrans = trim($_POST["RmvEqpt"]);
-                
-                $resulQty = $db->bdd->query(" SELECT salestrans.*, equipment.qty AS qtyEqp, equipment.idEquipment  FROM  salestrans, equipment WHERE idSalesTrans = '".$idSalesTrans."' AND salestrans.idEquipment = equipment.idEquipment ") or die(mysql_error());
-                $recQty = $resulQty->fetch();
-                
-		$Qty = $recQty["qty"];
-                $ActQty = $recQty["qtyEqp"];
-                $idEquipment = $recQty["idEquipment"];
-                
-                $newQTY = $Qty + $ActQty;
-                
-                $db->bdd->query(" delete from salestrans where  idSalesTrans = '".$idSalesTrans."' ") or die(mysql_error());
-		$db->bdd->query(" update equipment set qty = '".$newQTY."' where idEquipment = '".$idEquipment."' ") or die(mysql_error());
-		
-//		echo "Post Quantity is " . $Qty . " Actual Quantity is " . $ActQty . " Equipment Id is ". $idEquipment . "new Quantity is " . $newQTY;
-                echo " Product Remove From Cart ";
+		$idDriver = trim($_POST["idDriver"]);		
+		$db->bdd->query(" UPDATE drivers SET status = 0 where idDriver = '".$idDriver."'") or die(mysql_error());
 	}
+        
+        if(isset($_POST["activate_Driver"]))
+	{
+		$idDriver = trim($_POST["idDriver"]);		
+		$db->bdd->query(" UPDATE drivers SET status = 1 where idDriver = '".$idDriver."'") or die(mysql_error());
+	}
+        
+      
         
         
 ?>

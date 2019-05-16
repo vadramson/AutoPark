@@ -25,11 +25,17 @@ class MentainenceManager {
             $q->bindValue(':dateIn', $autoParkData->getDateIn());
             $q->bindValue(':dateOut', $autoParkData->getDateOut());
             $q->execute();
+            
+            if($autoParkData->getState() == "In Proces"){
+                $q = $this->_db->prepare("UPDATE vehicles SET availability = 0 WHERE idVehicle = '".$autoParkData->getIdVehicle()."' ") or die(mysql_error());
+                $q->execute();
+            }
+            
             ?>
             <script>
              swal("New Maintenance Record!", "Registered Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=TWFpbnRlbmFuY2UvTWFpbnRlbmFuY2U=";
              }, 100);   
             </script>;              
             <?php        
@@ -49,11 +55,20 @@ class MentainenceManager {
             $q->bindValue(':dateIn', $autoParkData->getDateIn());
             $q->bindValue(':dateOut', $autoParkData->getDateOut());
             $q->execute(); 
+            
+            if($autoParkData->getState() == "In Proces"){
+                $q = $this->_db->prepare("UPDATE vehicles SET availability = 0 WHERE idVehicle = '".$autoParkData->getIdVehicle()."' ") or die(mysql_error());
+                $q->execute();
+            }
+            if($autoParkData->getState() == "Finished and out"){
+                $q = $this->_db->prepare("UPDATE vehicles SET availability = 1 WHERE idVehicle = '".$autoParkData->getIdVehicle()."' ") or die(mysql_error());
+                $q->execute();
+            }
             ?>
             <script>
              swal("Maintenance Record!", "Updated Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=TWFpbnRlbmFuY2UvTWFpbnRlbmFuY2U=";
              }, 100);   
             </script>;              
             <?php

@@ -30,6 +30,10 @@
         <!-- Sweet Alert -->
         <script src="alerts/sweetalert.min.js"></script>
         
+        <!-- Bootstrap Colorpicker -->
+        <link href="vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+        
         
         <!-- Datatables -->
     <link href="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -37,6 +41,7 @@
     <link href="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/DateTimePicker.css" />
     </head>
     <?php
     session_start();
@@ -49,7 +54,15 @@
     if (isset($_SESSION["username"]) && (($_SESSION["role"]) == "Administrator")) {
         include 'Model/db.php';
         include_once('Model/Carmodel/Carmodel.php');
-        include_once('Model/Carmodel/CarmodelManager.php');        
+        include_once('Model/Carmodel/CarmodelManager.php');     
+        include_once('Model/Vehicles/Vehicles.php');
+        include_once('Model/Vehicles/VehiclesManager.php');
+        include_once('Model/Expenditure/Expenditure.php');
+        include_once('Model/Expenditure/ExpenditureManager.php');
+        include_once('Model/Mentainence/Mentainence.php');
+        include_once('Model/Mentainence/MentainenceManager.php');
+        include_once('Model/Drivers/Drivers.php');
+        include_once('Model/Drivers/DriversManager.php');
 
 
         $bdd = new AUTOPARK();
@@ -64,7 +77,7 @@
                     <div class="col-md-3 left_col">
                         <div class="left_col scroll-view">
                             <div class="navbar nav_title" style="border: 0;">
-                                <a href="index.html" class="site_title"><i class="fa fa-automobile"></i> <span>AutoPark</span></a>
+                                <a href="indexAdmin.php" class="site_title"><i class="fa fa-automobile"></i> <span>AutoPark</span></a>
                             </div>
 
                             <div class="clearfix"></div>
@@ -91,37 +104,22 @@
                                         <li><a><i class="fa fa-home"></i> Car <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
                                                 <li><a href="indexAdmin.php?page=<?php echo base64_encode('Carmodels_V/carModel');?>">Add Car Models</a></li>
-                                                <li><a href="index2.html">Dashboard2</a></li>
-                                                <li><a href="index3.html">Dashboard3</a></li>
+                                                <li><a href="indexAdmin.php?page=<?php echo base64_encode('vehicles/vehicle');?>">Add Vehicles</a></li>
                                             </ul>
                                         </li>
-                                        <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                                        <li><a><i class="fa fa-edit"></i> Car Expenditures <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="form.html">General Form</a></li>
-                                                <li><a href="form_advanced.html">Advanced Components</a></li>
-                                                <li><a href="form_validation.html">Form Validation</a></li>
-                                                <li><a href="form_wizards.html">Form Wizard</a></li>
-                                                <li><a href="form_upload.html">Form Upload</a></li>
-                                                <li><a href="form_buttons.html">Form Buttons</a></li>
+                                                <li><a href="indexAdmin.php?page=<?php echo base64_encode('Expenditures/Expenditures');?>">Expenditures</a></li>                                               
                                             </ul>
                                         </li>
-                                        <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                                        <li><a><i class="fa fa-desktop"></i> Car Maintenance <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="general_elements.html">General Elements</a></li>
-                                                <li><a href="media_gallery.html">Media Gallery</a></li>
-                                                <li><a href="typography.html">Typography</a></li>
-                                                <li><a href="icons.html">Icons</a></li>
-                                                <li><a href="glyphicons.html">Glyphicons</a></li>
-                                                <li><a href="widgets.html">Widgets</a></li>
-                                                <li><a href="invoice.html">Invoice</a></li>
-                                                <li><a href="inbox.html">Inbox</a></li>
-                                                <li><a href="calendar.html">Calendar</a></li>
+                                            <li><a href="indexAdmin.php?page=<?php echo base64_encode('Maintenance/Maintenance');?>">Maintenance</a></li>
                                             </ul>
                                         </li>
-                                        <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                                        <li><a><i class="fa fa-table"></i> Drivers <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="tables.html">Tables</a></li>
-                                                <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                                              <li><a href="indexAdmin.php?page=<?php echo base64_encode('Drivers/Drivers');?>">Add Driver</a></li>
                                             </ul>
                                         </li>
                                         <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
@@ -388,6 +386,11 @@
     <script src="vendors/jszip/dist/jszip.min.js"></script>
     <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+            <script src="js/datetimepicker_css.js"></script>
+
+    
+     <!-- Bootstrap Colorpicker -->
+    <script src="vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
              
              
              <!-- Datatables -->
@@ -472,6 +475,27 @@
       });
     </script>
     <!-- /Datatables -->
+    
+    <!-- Bootstrap Colorpicker -->
+    <script>
+      $(document).ready(function() {
+        $('.demo1').colorpicker();
+        $('.demo2').colorpicker();
+
+        $('#demo_forceformat').colorpicker({
+            format: 'rgba',
+            horizontal: true
+        });
+
+        $('#demo_forceformat3').colorpicker({
+            format: 'rgba',
+        });
+
+        $('.demo-auto').colorpicker();
+      });
+    </script>
+    <!-- /Bootstrap Colorpicker -->
+    
         </body>
     </html>
     <?php

@@ -18,11 +18,10 @@ class DriversManager {
         $reqt = $resul->fetch();
 
         if ($reqt == NULL) {
-            $q = $this->_db->prepare("INSERT INTO drivers SET idUser = :idUser, name = :name, availability = :availability, licenseType = :licenseType, licenseID = :licenseID, picture = :picture, idNumber = :idNumber, email = :email, phone = :phone ") or die(mysql_error());
+            $q = $this->_db->prepare("INSERT INTO drivers SET idUser = :idUser, name = :name, licenseType = :licenseType, licenseID = :licenseID, picture = :picture, idNumber = :idNumber, email = :email, phone = :phone ") or die(mysql_error());
 
             $q->bindValue(':idUser', $autoParkData->getIdUser());
             $q->bindValue(':name', $autoParkData->getName());
-            $q->bindValue(':availability', $autoParkData->getAvailability());
             $q->bindValue(':licenseType', $autoParkData->getLicenseType());
             $q->bindValue(':licenseID', $autoParkData->getLicenseID());
             $q->bindValue(':picture', $autoParkData->getPicture());
@@ -34,7 +33,7 @@ class DriversManager {
             <script>
              swal("New Driver!", "Added Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=RHJpdmVycy9Ecml2ZXJz";
              }, 20);   
             </script>;              
             <?php
@@ -45,7 +44,7 @@ class DriversManager {
              console.log(reload);
              swal("Redundacy!", "Driver Exists Already!", "error");
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=RHJpdmVycy9Ecml2ZXJz";
              }, 20);   
             </script>;
             <?php
@@ -54,12 +53,11 @@ class DriversManager {
 
 
     public function update_driver($autoParkData) {
-            $q = $this->_db->prepare("UPDATE drivers SET idUser = :idUser, name = :name, availability = :availability, licenseType = :licenseType, licenseID = :licenseID, picture = :picture, idNumber = :idNumber, email = :email, phone = :phone WHERE idDriver = :idDriver ") or die(mysql_error());
+            $q = $this->_db->prepare("UPDATE drivers SET idUser = :idUser, name = :name, licenseType = :licenseType, licenseID = :licenseID, picture = :picture, idNumber = :idNumber, email = :email, phone = :phone WHERE idDriver = :idDriver ") or die(mysql_error());
 
             $q->bindValue(':idDriver', $autoParkData->getIdDriver());
             $q->bindValue(':idUser', $autoParkData->getIdUser());
             $q->bindValue(':name', $autoParkData->getName());
-            $q->bindValue(':availability', $autoParkData->getAvailability());
             $q->bindValue(':licenseType', $autoParkData->getLicenseType());
             $q->bindValue(':licenseID', $autoParkData->getLicenseID());
             $q->bindValue(':picture', $autoParkData->getPicture());
@@ -71,7 +69,7 @@ class DriversManager {
             <script>
              swal("Driver!", "Updated Successefully!", "success");   
              setTimeout(function() {
-                window.location.href = "indexAdmin.php?page=Q2FybW9kZWxzX1YvY2FyTW9kZWw=";
+                window.location.href = "indexAdmin.php?page=RHJpdmVycy9Ecml2ZXJz";
              }, 100);   
             </script>;              
             <?php

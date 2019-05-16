@@ -86,6 +86,93 @@ function activate_Carmodel(idModel)
 
 }
 
+function deactivate_Driver(idDriver)
+{
+    
+    swal({
+        title: "Are you sure?",
+        text: "you want to deactivate this Driver!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, please!",
+        cancelButtonText: "No, don't!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+            function (isConfirm) {
+                if (isConfirm) {
+//                    -----
+                   $.ajax
+                ({
+                    type: 'post',
+                    url: 'Model/php_ajax.php',
+                    data: {
+                        deactivate_carModel: 'deactivate_Driver',
+                        idDriver: idDriver
+                    },
+                    success: function (response) {    
+                        swal("Deactivated!", "Driver Deactivated!.", "success");
+                        setTimeout(function () {
+                            window.location.href = "indexAdmin.php?page=RHJpdmVycy9Ecml2ZXJz";
+                        }, 100);
+                        console.log(idDriver);
+                    },
+                    error:function(response){
+                        alert("Error " + response);
+                    }
+                });
+//                    -----                    
+                } else {
+                    swal("Cancelled", "Operation aborted", "error");
+                }
+            });
+
+}
+
+
+function activate_Driver(idDriver)
+{
+    swal({
+        title: "Are you sure?",
+        text: "you want to activate this Driver!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, please!",
+        cancelButtonText: "No, don't!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+            function (isConfirm) {
+                if (isConfirm) {
+//                    -----
+                    $.ajax
+                ({
+                    type: 'post',
+                    url: 'Model/php_ajax.php',
+                    data: {
+                        activate_Carmodel: 'activate_Driver',
+                        idDriver: idDriver
+                    },
+                    success: function (response) {
+                        swal("Activated!", "Driver Activated!.", "success");
+                        setTimeout(function () {
+                            window.location.href = "indexAdmin.php?page=RHJpdmVycy9Ecml2ZXJz";
+                        }, 100);
+                    },
+                    error:function(response){
+                        swal("Unknown error!", "Try Again", "error");
+                    }
+                });
+//                    -----                    
+                } else {
+                    swal("Cancelled", "Operation aborted", "error");
+                }
+            });
+
+}
+
 
 
 
